@@ -1,8 +1,6 @@
-export interface Gpu {
-    id: string;
-    imageUrl: string;
-    brand: string;
-    model: string;
-    price: string;
-    stock: string;
+import {Item} from './item.model';
+
+export interface Gpu extends Item{
+    size: string;
+    speed: string;
 }

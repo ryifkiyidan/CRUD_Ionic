@@ -1,20 +1,62 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="changeLayout()">
+          <ion-icon [name]="currLayout==='1' ? 'list' : 'grid'" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2">
+        <ion-grid [ngSwitch]="currLayout">
+            <ion-row *ngSwitchCase="'1'">
+                <ion-col size="12" *ngFor="let item of items">
+                    <ion-card [routerLink]="['./', item.id]" class="ion-no-padding ion-no-margin">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="4"><img [src]="item.imageUrl" alt="image"/></ion-col>
+                                <ion-col size="8">
+                                    <ion-text>{{item.brand}}</ion-text>
+                                    <ion-text style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 16px; max-height: 32px; -webkit-box-orient: vertical">
+                                        <b>{{item.model}}</b>
+                                    </ion-text>
+                                    <br>
+                                    <ion-text>Rp. {{item.price}}</ion-text>
+                                    <br>
+                                    <ion-text>Stock: {{item.stock}}</ion-text>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngSwitchCase="'2'">
+                <ion-col size="6" *ngFor="let item of items">
+                    <ion-card [routerLink]="['./', item.id]" class="ion-no-padding ion-no-margin">
+                        <img [src]="item.imageUrl" alt="image"/>
+                        <ion-card-header>
+                            <ion-card-subtitle>{{item.brand}}</ion-card-subtitle>
+                            <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 16px; max-height: 32px; -webkit-box-orient: vertical">
+                                <b>{{item.model}}</b>
+                            </p>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <p>Rp. {{item.price}}</p>
+                            <p>Stock: {{item.stock}}</p>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{loadedItem.brand}} {{loadedItem.model}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col><ion-img [src]="loadedItem.imageUrl"></ion-img></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h3>Rp. {{loadedItem.price}}</h3>
+        <ion-text>{{loadedItem.brand}} {{loadedItem.model}}</ion-text>
+        <p>Stock: {{loadedItem.stock}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

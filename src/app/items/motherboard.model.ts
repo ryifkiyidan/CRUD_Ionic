@@ -1,10 +1,6 @@
-export interface Motherboard {
-    id: string;
-    imageUrl: string;
-    brand: string;
-    model: string;
+import {Item} from './item.model';
+
+export interface Motherboard extends Item{
     chipset: string;
     socket: string;
-    price: string;
-    stock: string;
 }

@@ -1,10 +1,6 @@
-export interface Ram {
-    id: string;
-    imageUrl: string;
-    brand: string;
-    model: string;
+import {Item} from './item.model';
+
+export interface Ram extends Item{
     speed: string;
     size: string;
-    price: string;
-    stock: string;
 }
