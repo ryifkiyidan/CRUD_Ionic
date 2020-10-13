@@ -1,23 +1,92 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>{{loadedItem.brand}} {{loadedItem.model}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col><ion-img [src]="loadedItem.imageUrl"></ion-img></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <h3>Rp. {{loadedItem.price}}</h3>
-        <ion-text>{{loadedItem.brand}} {{loadedItem.model}}</ion-text>
-        <p>Stock: {{loadedItem.stock}}</p>
-      </ion-col>
-    </ion-row>
+  <ion-img [src]="loadedItem.imageUrl"></ion-img>
+  <ion-grid class="ion-padding-top">
+    <ion-card class="ion-no-margin ion-padding-horizontal">
+      <ion-row>
+        <ion-col>
+            <h3><b>Rp{{loadedItem.price}}</b></h3>
+            <ion-text>{{loadedItem.brand}} {{loadedItem.model}}</ion-text>
+            <p style="font-size: 12px;">Stock: {{loadedItem.stock}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card class="ion-no-margin ion-margin-vertical ion-padding">
+      <ion-row [ngSwitch]="loadedItem.type">
+
+        <ion-col *ngSwitchCase="'cpu'">
+          <ion-text style="font-size: 16px;"><b>Informasi {{loadedItem.type.toUpperCase()}}</b></ion-text><br>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-text-start">Base Clock</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.base_clock}} Ghz</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-text-start">Boost Clock</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.boost_clock}} Ghz</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-text-start"># of CPU Cores</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.core_count}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-text-start"># of Threads</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.thread_count}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+
+        <ion-col *ngSwitchCase="'ram'">
+          <ion-text style="font-size: 16px;"><b>Informasi {{loadedItem.type.toUpperCase()}}</b></ion-text><br>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-text-start">Speed</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.speed}} Mhz</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-text-start">Size</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.size}} GB</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+
+        <ion-col *ngSwitchCase="'motherboard'">
+          <ion-text style="font-size: 16px;" class="ion-text-capitalize"><b>Informasi {{loadedItem.type}}</b></ion-text><br>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-text-start">Chipset</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.chipset}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-text-start">Socket</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.socket}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+
+        <ion-col *ngSwitchCase="'gpu'">
+          <ion-text style="font-size: 16px;"><b>Informasi {{loadedItem.type.toUpperCase()}}</b></ion-text><br>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-text-start">Size</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.size}} GB</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-text-start">Speed</ion-col>
+              <ion-col class="ion-text-end">{{loadedItem.speed}} Ghz</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+
+      </ion-row>
+    </ion-card>
   </ion-grid>
 </ion-content>

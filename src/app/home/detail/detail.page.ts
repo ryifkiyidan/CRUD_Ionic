@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ItemsService} from '../../items/items.service';
 import {Item} from '../../items/item.model';
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-detail',
@@ -16,12 +17,11 @@ export class DetailPage implements OnInit {
       private itemsServ: ItemsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(){
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('itemId')) { return; }
       this.itemId = paramMap.get('itemId');
       this.loadedItem = this.itemsServ.getItem(this.itemId);
     });
   }
-
 }

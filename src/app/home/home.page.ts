@@ -16,11 +16,11 @@ export class HomePage {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit(){
-    this.currLayout = '2';
+    this.currLayout = '1';
   }
 
   ionViewWillEnter(){
-    this.items = this.itemsServ.getAllItems();
+    this.items = this.itemsServ.getAllItemsExceptZeroStock();
   }
 
   changeLayout(){
