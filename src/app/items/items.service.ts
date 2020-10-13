@@ -35,19 +35,7 @@ export class ItemsService {
       boost_clock: '3.6',
       core_count: '18',
       thread_count: '36',
-    },
-    // {
-    //   id: '',
-    //   imageUrl: '',
-    //   brand: '',
-    //   model: '',
-    //   base_clock: '',
-    //   boost_clock: '',
-    //   core_count: '',
-    //   thread_count: '',
-    //   price: '',
-    //   stock: ''
-    // },
+    }
   ];
 
   private rams: Ram[] = [
@@ -72,17 +60,7 @@ export class ItemsService {
       stock: '10',
       speed: '3000',
       size: '16'
-    },
-    // {
-    //   id: '',
-    //   imageUrl: '',
-    //   brand: '',
-    //   model: '',
-    //   speed: '',
-    //   size: '',
-    //   price: '',
-    //   stock: ''
-    // },
+    }
   ];
 
   private motherboards: Motherboard[] = [
@@ -107,17 +85,7 @@ export class ItemsService {
       stock: '5',
       chipset: 'Intel Z490',
       socket: '1200'
-    },
-    // {
-    //   id: '',
-    //   imageUrl: '',
-    //   brand: '',
-    //   model: '',
-    //   chipset: '',
-    //   socket: '',
-    //   price: '',
-    //   stock: ''
-    // },
+    }
   ];
 
   private gpus: Gpu[] = [
@@ -142,21 +110,30 @@ export class ItemsService {
       stock: '3',
       size: '8',
       speed: '1.7'
-    },
-    // {
-    //   id: '',
-    //   imageUrl: '',
-    //   brand: '',
-    //   model: '',
-    //   price: '',
-    //   stock: ''
-    // },
+    }
   ];
 
   constructor() { }
 
   getAllItems(){
     return [...this.cpus, ...this.rams, ...this.motherboards, ...this.gpus];
+  }
+
+  getAllItemsExceptZeroStock(){
+    return [
+      ...this.cpus.filter(item => {
+        return item.stock !== '0';
+      }),
+      ...this.rams.filter(item => {
+        return item.stock !== '0';
+      }),
+      ...this.motherboards.filter(item => {
+        return item.stock !== '0';
+      }),
+      ...this.gpus.filter(item => {
+        return item.stock !== '0';
+      })
+    ];
   }
 
   getAllCpus(){
