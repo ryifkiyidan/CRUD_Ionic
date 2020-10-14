@@ -204,6 +204,23 @@ export class ItemsService {
       })};
   }
 
+  deleteItem(id: string){
+    const type = id.substr(0, 1);
+    switch (type){
+      case 'c':
+        this.deleteCpu(id);
+        break;
+      case 'r':
+        this.deleteRam(id);
+        break;
+      case 'm':
+        this.deleteMotherboard(id);
+        break;
+      case 'g':
+        this.deleteGpu(id);
+        break;
+    }
+  }
   deleteCpu(id: string){
     this.cpus = this.cpus.filter(cpu => {
       return cpu.id !== id;
