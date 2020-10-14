@@ -170,6 +170,18 @@ export class ItemsService {
         return this.gpus.length;
     }
   }
+  getItemIndex(type: string, id: string){
+    switch (type){
+      case 'cpu':
+        return this.cpus.findIndex(cpu => cpu.id === id);
+      case 'ram':
+        return this.rams.findIndex(ram => ram.id === id);
+      case 'motherboard':
+        return this.motherboards.findIndex(motherboard => motherboard.id === id);
+      case 'gpu':
+        return this.gpus.findIndex(gpu => gpu.id === id);
+    }
+  }
 
   getCpu(id: string){
     return {...this.cpus.find(cpu => {
@@ -224,5 +236,18 @@ export class ItemsService {
   }
   addGpu(gpu: Gpu){
     this.gpus.push(gpu);
+  }
+
+  editCpu(id: string, cpu: Cpu){
+    this.cpus[this.getItemIndex(cpu.type, id)] = cpu;
+  }
+  editRam(id: string, ram: Ram){
+    this.rams[this.getItemIndex(ram.type, id)] = ram;
+  }
+  editMotherboard(id: string, motherboard: Motherboard){
+    this.motherboards[this.getItemIndex(motherboard.type, id)] = motherboard;
+  }
+  editGpu(id: string, gpu: Gpu){
+    this.gpus[this.getItemIndex(gpu.type, id)] = gpu;
   }
 }

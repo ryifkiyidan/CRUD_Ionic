@@ -27,19 +27,19 @@
           <ion-grid>
             <ion-row>
               <ion-col class="ion-text-start">Base Clock</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.base_clock}} Ghz</ion-col>
+              <ion-col class="ion-text-end">{{loadedCpu.baseClock}} Ghz</ion-col>
             </ion-row>
             <ion-row>
               <ion-col class="ion-text-start">Boost Clock</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.boost_clock}} Ghz</ion-col>
+              <ion-col class="ion-text-end">{{loadedCpu.boostClock}} Ghz</ion-col>
             </ion-row>
             <ion-row>
               <ion-col class="ion-text-start"># of CPU Cores</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.core_count}}</ion-col>
+              <ion-col class="ion-text-end">{{loadedCpu.coreCount}}</ion-col>
             </ion-row>
             <ion-row>
               <ion-col class="ion-text-start"># of Threads</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.thread_count}}</ion-col>
+              <ion-col class="ion-text-end">{{loadedCpu.threadCount}}</ion-col>
             </ion-row>
           </ion-grid>
         </ion-col>
@@ -49,11 +49,11 @@
           <ion-grid>
             <ion-row>
               <ion-col class="ion-text-start">Speed</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.speed}} Mhz</ion-col>
+              <ion-col class="ion-text-end">{{loadedRam.speed}} Mhz</ion-col>
             </ion-row>
             <ion-row>
               <ion-col class="ion-text-start">Size</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.size}} GB</ion-col>
+              <ion-col class="ion-text-end">{{loadedRam.size}} GB</ion-col>
             </ion-row>
           </ion-grid>
         </ion-col>
@@ -63,11 +63,11 @@
           <ion-grid>
             <ion-row>
               <ion-col class="ion-text-start">Chipset</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.chipset}}</ion-col>
+              <ion-col class="ion-text-end">{{loadedMotherboard.chipset}}</ion-col>
             </ion-row>
             <ion-row>
               <ion-col class="ion-text-start">Socket</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.socket}}</ion-col>
+              <ion-col class="ion-text-end">{{loadedMotherboard.socket}}</ion-col>
             </ion-row>
           </ion-grid>
         </ion-col>
@@ -77,11 +77,11 @@
           <ion-grid>
             <ion-row>
               <ion-col class="ion-text-start">Size</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.size}} GB</ion-col>
+              <ion-col class="ion-text-end">{{loadedGpu.size}} GB</ion-col>
             </ion-row>
             <ion-row>
               <ion-col class="ion-text-start">Speed</ion-col>
-              <ion-col class="ion-text-end">{{loadedItem.speed}} Ghz</ion-col>
+              <ion-col class="ion-text-end">{{loadedGpu.speed}} Ghz</ion-col>
             </ion-row>
           </ion-grid>
         </ion-col>
