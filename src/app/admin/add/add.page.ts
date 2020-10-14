@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {ItemsService} from '../../items/items.service';
-import {NavController} from '@ionic/angular';
+import {NavController, ToastController} from '@ionic/angular';
 import {Ram} from '../../items/ram.model';
 import {Cpu} from '../../items/cpu.model';
 import {Motherboard} from '../../items/motherboard.model';
@@ -15,7 +15,8 @@ import {Gpu} from '../../items/gpu.model';
 export class AddPage implements OnInit {
   constructor(
       private itemsServ: ItemsService,
-      private navCtrl: NavController
+      private navCtrl: NavController,
+      private toastCtrl: ToastController
   ) { }
   form: FormGroup;
   validationMessages = {
@@ -253,8 +254,16 @@ export class AddPage implements OnInit {
       // @ts-ignore
       this.itemsServ.addGpu(gpu);
     }
-
+    this.presentToast();
     this.navCtrl.navigateBack('/admin');
   }
 
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Item added successfully',
+      duration: 3000,
+      color: 'success'
+    });
+    await toast.present();
+  }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ItemsService} from '../../items/items.service';
 import {Item} from '../../items/item.model';
-import {NavController} from '@ionic/angular';
+import {NavController, ToastController} from '@ionic/angular';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Cpu} from '../../items/cpu.model';
 import {Ram} from '../../items/ram.model';
@@ -18,7 +18,8 @@ export class EditPage implements OnInit {
   constructor(
       private activatedRoute: ActivatedRoute,
       private itemsServ: ItemsService,
-      private navCtrl: NavController
+      private navCtrl: NavController,
+      private toastCtrl: ToastController,
   ) { }
   form: FormGroup;
   loadedItem: Item;
@@ -286,8 +287,15 @@ export class EditPage implements OnInit {
       // @ts-ignore
       this.itemsServ.editGpu(this.itemId, gpu);
     }
-
+    this.presentToast();
     this.navCtrl.navigateBack('/admin');
   }
-
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Item edited successfully',
+      duration: 3000,
+      color: 'success'
+    });
+    await toast.present();
+  }
 }
