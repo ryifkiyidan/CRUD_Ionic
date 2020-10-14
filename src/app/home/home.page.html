@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="success">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -16,7 +16,7 @@
     <ion-grid [ngSwitch]="currLayout">
         <ion-row *ngSwitchCase="'1'">
             <ion-col size="12" *ngFor="let item of items">
-                <ion-card *ngIf="item.stock != 0" [routerLink]="['./', item.id]" class="ion-no-padding ion-no-margin">
+                <ion-card [routerLink]="['./', item.id]" class="ion-no-padding ion-no-margin">
                     <ion-grid>
                         <ion-row>
                             <ion-col size="4"><img [src]="item.imageUrl" alt="image"/></ion-col>
@@ -37,7 +37,7 @@
         </ion-row>
         <ion-row *ngSwitchCase="'2'">
             <ion-col size="6" *ngFor="let item of items">
-                <ion-card *ngIf="item.stock != 0" [routerLink]="['./', item.id]" class="ion-no-padding ion-no-margin">
+                <ion-card [routerLink]="['./', item.id]" class="ion-no-padding ion-no-margin">
                     <img [src]="item.imageUrl" alt="image"/>
                     <ion-card-header>
                         <ion-card-subtitle>{{item.brand}}</ion-card-subtitle>

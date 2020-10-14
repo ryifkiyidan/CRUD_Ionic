@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: AdminPage
+  },
+  {
+    path: 'add',
+    loadChildren: () => import('./add/add.module').then( m => m.AddPageModule)
+  },
+  {
+    path: ':itemId',
+    loadChildren: () => import('./edit/edit.module').then(m => m.DetailPageModule)
   }
 ];
 

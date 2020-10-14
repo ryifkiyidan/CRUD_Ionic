@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ItemsService} from '../items/items.service';
+import {Item} from '../items/item.model';
 
 @Component({
   selector: 'app-admin',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.page.scss'],
 })
 export class AdminPage implements OnInit {
-
-  constructor() { }
+  items: Item[];
+  constructor(
+      private itemsServ: ItemsService
+  ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.items = this.itemsServ.getAllItems();
   }
 
 }

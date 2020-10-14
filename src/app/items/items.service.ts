@@ -18,10 +18,10 @@ export class ItemsService {
       model: 'Threadripper 3990X',
       price: '66.000.000',
       stock: '2',
-      base_clock: '2.9',
-      boost_clock: '4.3',
-      core_count: '64',
-      thread_count: '128'
+      baseClock: '2.9',
+      boostClock: '4.3',
+      coreCount: '64',
+      threadCount: '128'
     },
     {
       id: 'c2',
@@ -31,13 +31,12 @@ export class ItemsService {
       model: 'Xeon E5-2697',
       price: '77.835.000',
       stock: '2',
-      base_clock: '2.3',
-      boost_clock: '3.6',
-      core_count: '18',
-      thread_count: '36',
+      baseClock: '2.3',
+      boostClock: '3.6',
+      coreCount: '18',
+      threadCount: '36',
     }
   ];
-
   private rams: Ram[] = [
     {
       id: 'r1',
@@ -62,7 +61,6 @@ export class ItemsService {
       size: '16'
     }
   ];
-
   private motherboards: Motherboard[] = [
     {
       id: 'm1',
@@ -87,7 +85,6 @@ export class ItemsService {
       socket: '1200'
     }
   ];
-
   private gpus: Gpu[] = [
     {
       id: 'g1',
@@ -118,7 +115,6 @@ export class ItemsService {
   getAllItems(){
     return [...this.cpus, ...this.rams, ...this.motherboards, ...this.gpus];
   }
-
   getAllItemsExceptZeroStock(){
     return [
       ...this.cpus.filter(item => {
@@ -139,15 +135,12 @@ export class ItemsService {
   getAllCpus(){
     return [...this.cpus];
   }
-
   getAllRams(){
     return [...this.rams];
   }
-
   getAllMotherboards(){
     return [...this.motherboards];
   }
-
   getAllGpus(){
     return [...this.gpus];
   }
@@ -165,25 +158,34 @@ export class ItemsService {
         return this.getGpu(id);
     }
   }
+  getItemLength(type: string){
+    switch (type){
+      case 'cpu':
+        return this.cpus.length;
+      case 'ram':
+        return this.rams.length;
+      case 'motherboard':
+        return this.motherboards.length;
+      case 'gpu':
+        return this.gpus.length;
+    }
+  }
 
   getCpu(id: string){
     return {...this.cpus.find(cpu => {
         return cpu.id === id;
       })};
   }
-
   getRam(id: string){
     return {...this.rams.find(ram => {
         return ram.id === id;
       })};
   }
-
   getMotherboard(id: string){
     return {...this.motherboards.find(motherboard => {
         return motherboard.id === id;
       })};
   }
-
   getGpu(id: string){
     return {...this.gpus.find(gpu => {
         return gpu.id === id;
@@ -195,22 +197,32 @@ export class ItemsService {
       return cpu.id !== id;
     });
   }
-
   deleteMotherboard(id: string){
     this.motherboards = this.motherboards.filter(motherboard => {
       return motherboard.id !== id;
     });
   }
-
   deleteRam(id: string){
     this.rams = this.rams.filter(ram => {
       return ram.id !== id;
     });
   }
-
   deleteGpu(id: string){
     this.gpus = this.gpus.filter(gpu => {
       return gpu.id !== id;
     });
+  }
+
+  addCpu(cpu: Cpu){
+    this.cpus.push(cpu);
+  }
+  addRam(ram: Ram){
+    this.rams.push(ram);
+  }
+  addMotherboard(motherboard: Motherboard){
+    this.motherboards.push(motherboard);
+  }
+  addGpu(gpu: Gpu){
+    this.gpus.push(gpu);
   }
 }
