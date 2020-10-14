@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/admin"></ion-back-button>
     </ion-buttons>
-    <ion-title>Add Product</ion-title>
+    <ion-title>Add Item</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +13,7 @@
       <!--General Form-->
       <ion-row formGroupName="gForm">
         <ion-col size="12" style="padding-bottom: 0; padding-left: 16px">
-          <ion-text>Product's Data</ion-text>
+          <ion-text>Item's Data</ion-text>
         </ion-col>
         <!-- type -->
         <ion-col size="12">
@@ -129,7 +129,7 @@
         <ion-col class="ion-no-padding">
           <ion-row *ngIf="form.get('gForm.type').valid">
             <ion-col size="12" style="padding-bottom: 0; padding-left: 16px">
-              <ion-text>Product's Detail</ion-text>
+              <ion-text>Item's Detail</ion-text>
             </ion-col>
           </ion-row>
           <!--cpu-->
