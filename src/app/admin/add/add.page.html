@@ -1,0 +1,324 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <!--General Form-->
+      <ion-row formGroupName="gForm">
+        <ion-col size="12" style="padding-bottom: 0; padding-left: 16px">
+          <ion-text>Product's Data</ion-text>
+        </ion-col>
+        <!-- type -->
+        <ion-col size="12">
+          <ion-item>
+            <ion-label>Type</ion-label>
+            <ion-select
+                    interface="popover"
+                    formControlName="type"
+                    (ionChange)="
+                      form.get('cpuForm').reset();
+                      form.get('ramForm').reset();
+                      form.get('motherboardForm').reset();
+                      form.get('gpuForm').reset()">
+              <ion-select-option value="cpu">CPU</ion-select-option>
+              <ion-select-option value="ram">RAM</ion-select-option>
+              <ion-select-option value="motherboard">Motherboard</ion-select-option>
+              <ion-select-option value="gpu">GPU</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let v of validationMessages.type">
+              <div class="error-message" *ngIf="
+                form.get('gForm.type').hasError(v.type) &&
+                (form.get('gForm.imageUrl').dirty || form.get('gForm.type').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+        <!-- imageUrl -->
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Image URL</ion-label>
+            <ion-textarea type="text" formControlName="imageUrl"></ion-textarea>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let v of validationMessages.imageUrl">
+              <div class="error-message" *ngIf="
+              form.get('gForm.imageUrl').hasError(v.type) &&
+              (form.get('gForm.imageUrl').dirty || form.get('gForm.imageUrl').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+        <!-- brand -->
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Brand</ion-label>
+            <ion-input type="text" formControlName="brand"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let v of validationMessages.brand">
+              <div class="error-message" *ngIf="
+                form.get('gForm.brand').hasError(v.type) &&
+                (form.get('gForm.brand').dirty || form.get('gForm.brand').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+        <!-- model -->
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Model</ion-label>
+            <ion-input type="text" formControlName="model"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let v of validationMessages.model">
+              <div class="error-message" *ngIf="
+                form.get('gForm.model').hasError(v.type) &&
+                (form.get('gForm.model').dirty || form.get('gForm.model').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+        <!-- price -->
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Price (Rp.)</ion-label>
+            <ion-input type="number" formControlName="price"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let v of validationMessages.price">
+              <div class="error-message" *ngIf="
+                form.get('gForm.price').hasError(v.type) &&
+                (form.get('gForm.price').dirty || form.get('gForm.price').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+        <!-- stock -->
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Stock</ion-label>
+            <ion-input type="number" formControlName="stock"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let v of validationMessages.stock">
+              <div class="error-message" *ngIf="
+                form.get('gForm.stock').hasError(v.type) &&
+                (form.get('gForm.stock').dirty || form.get('gForm.stock').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!--Specific Form-->
+      <ion-row [ngSwitch]="form.get('gForm.type').value" class="ion-margin-top">
+        <ion-col class="ion-no-padding">
+          <ion-row *ngIf="form.get('gForm.type').valid">
+            <ion-col size="12" style="padding-bottom: 0; padding-left: 16px">
+              <ion-text>Product's Detail</ion-text>
+            </ion-col>
+          </ion-row>
+          <!--cpu-->
+          <ion-row formGroupName="cpuForm">
+            <ion-col *ngSwitchCase="'cpu'" size="6" style="padding-top: 0">
+              <!-- baseClock -->
+              <ion-item>
+                <ion-label position="floating">Base clock (GHz)</ion-label>
+                <ion-input type="number" formControlName="baseClock"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.baseClock">
+                  <div class="error-message" *ngIf="
+                form.get('cpuForm.baseClock').hasError(v.type) &&
+                (form.get('cpuForm.baseClock').dirty || form.get('cpuForm.baseClock').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+            <ion-col *ngSwitchCase="'cpu'" size="6" style="padding-top: 0">
+              <!-- boostClock -->
+              <ion-item>
+                <ion-label position="floating">Boost clock (GHz)</ion-label>
+                <ion-input type="number" formControlName="boostClock"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.boostClock">
+                  <div class="error-message" *ngIf="
+                form.get('cpuForm.boostClock').hasError(v.type) &&
+                (form.get('cpuForm.boostClock').dirty || form.get('cpuForm.boostClock').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+            <ion-col *ngSwitchCase="'cpu'" size="6" style="padding-top: 0">
+              <!-- coreCount -->
+              <ion-item>
+                <ion-label position="floating"># of CPU Cores</ion-label>
+                <ion-input type="number" formControlName="coreCount"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.coreCount">
+                  <div class="error-message" *ngIf="
+                form.get('cpuForm.coreCount').hasError(v.type) &&
+                (form.get('cpuForm.coreCount').dirty || form.get('cpuForm.coreCount').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+            <ion-col *ngSwitchCase="'cpu'" size="6" style="padding-top: 0">
+              <!-- threadCount -->
+              <ion-item>
+                <ion-label position="floating"># of Threads</ion-label>
+                <ion-input type="number" formControlName="threadCount"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.threadCount">
+                  <div class="error-message" *ngIf="
+                form.get('cpuForm.threadCount').hasError(v.type) &&
+                (form.get('cpuForm.threadCount').dirty || form.get('cpuForm.threadCount').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+          </ion-row>
+          <!--ram-->
+          <ion-row formGroupName="ramForm">
+            <ion-col *ngSwitchCase="'ram'" size="6" style="padding-top: 0">
+              <!-- speedRam -->
+              <ion-item>
+                <ion-label position="floating">Speed (MHz)</ion-label>
+                <ion-input type="number" formControlName="speedRam"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.speedRam">
+                  <div class="error-message" *ngIf="
+                form.get('ramForm.speedRam').hasError(v.type) &&
+                (form.get('ramForm.speedRam').dirty || form.get('ramForm.speedRam').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+            <ion-col *ngSwitchCase="'ram'" size="6" style="padding-top: 0">
+              <!-- sizeRam -->
+              <ion-item>
+                <ion-label position="floating">Size (GB)</ion-label>
+                <ion-input type="number" formControlName="sizeRam"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.sizeRam">
+                  <div class="error-message" *ngIf="
+                form.get('ramForm.sizeRam').hasError(v.type) &&
+                (form.get('ramForm.sizeRam').dirty || form.get('ramForm.sizeRam').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+          </ion-row>
+          <!--motherboard-->
+          <ion-row formGroupName="motherboardForm">
+            <ion-col *ngSwitchCase="'motherboard'" size="6" style="padding-top: 0">
+              <!-- chipset -->
+              <ion-item>
+                <ion-label position="floating">Chipset</ion-label>
+                <ion-input type="text" formControlName="chipset"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.chipset">
+                  <div class="error-message" *ngIf="
+                form.get('motherboardForm.chipset').hasError(v.type) &&
+                (form.get('motherboardForm.chipset').dirty || form.get('motherboardForm.chipset').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+            <ion-col *ngSwitchCase="'motherboard'" size="6" style="padding-top: 0">
+              <!-- socket -->
+              <ion-item>
+                <ion-label position="floating">Socket</ion-label>
+                <ion-input type="number" formControlName="socket"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.socket">
+                  <div class="error-message" *ngIf="
+                form.get('motherboardForm.socket').hasError(v.type) &&
+                (form.get('motherboardForm.socket').dirty || form.get('motherboardForm.socket').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+          </ion-row>
+          <!--gpu-->
+          <ion-row formGroupName="gpuForm">
+            <ion-col *ngSwitchCase="'gpu'" size="6" style="padding-top: 0">
+              <!-- sizeGpu -->
+              <ion-item>
+                <ion-label position="floating">Size (GB)</ion-label>
+                <ion-input type="number" formControlName="sizeGpu"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.sizeGpu">
+                  <div class="error-message" *ngIf="
+                form.get('gpuForm.sizeGpu').hasError(v.type) &&
+                (form.get('gpuForm.sizeGpu').dirty || form.get('gpuForm.sizeGpu').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+            <ion-col *ngSwitchCase="'gpu'" size="6" style="padding-top: 0">
+              <!-- speedGpu -->
+              <ion-item>
+                <ion-label position="floating">Speed (GHz)</ion-label>
+                <ion-input type="number" formControlName="speedGpu"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let v of validationMessages.speedGpu">
+                  <div class="error-message" *ngIf="
+                form.get('gpuForm.speedGpu').hasError(v.type) &&
+                (form.get('gpuForm.speedGpu').dirty || form.get('gpuForm.speedGpu').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ v.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <!--Submit Button-->
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit"
+                      color="danger"
+                      expand="block"
+                      (click)="onSubmit()"
+                      [disabled]="(!form.get('gForm').valid || !form.get('cpuForm').valid) &&
+                                  (!form.get('gForm').valid || !form.get('ramForm').valid) &&
+                                  (!form.get('gForm').valid || !form.get('motherboardForm').valid) &&
+                                  (!form.get('gForm').valid || !form.get('gpuForm').valid)">Submit</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
