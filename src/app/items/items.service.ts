@@ -3,6 +3,7 @@ import {Cpu} from './cpu.model';
 import {Ram} from './ram.model';
 import {Motherboard} from './motherboard.model';
 import {Gpu} from './gpu.model';
+import {Item} from './item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -131,7 +132,6 @@ export class ItemsService {
       })
     ];
   }
-
   getAllCpus(){
     return [...this.cpus];
   }
@@ -145,19 +145,6 @@ export class ItemsService {
     return [...this.gpus];
   }
 
-  getItem(id: string){
-    const type = id.substr(0, 1);
-    switch (type){
-      case 'c':
-        return this.getCpu(id);
-      case 'r':
-        return this.getRam(id);
-      case 'm':
-        return this.getMotherboard(id);
-      case 'g':
-        return this.getGpu(id);
-    }
-  }
   getItemLength(type: string){
     switch (type){
       case 'cpu':
@@ -183,6 +170,19 @@ export class ItemsService {
     }
   }
 
+  getItem(id: string){
+    const type = id.substr(0, 1);
+    switch (type){
+      case 'c':
+        return this.getCpu(id);
+      case 'r':
+        return this.getRam(id);
+      case 'm':
+        return this.getMotherboard(id);
+      case 'g':
+        return this.getGpu(id);
+    }
+  }
   getCpu(id: string){
     return {...this.cpus.find(cpu => {
         return cpu.id === id;
@@ -242,6 +242,31 @@ export class ItemsService {
     });
   }
 
+  addItem(item: Item){
+    const type = item.type;
+    switch (type){
+      case 'cpu':
+        // @ts-ignore
+        const cpu: Cpu = item;
+        this.addCpu(cpu);
+        break;
+      case 'ram':
+        // @ts-ignore
+        const ram: Ram = item;
+        this.addRam(ram);
+        break;
+      case 'motherboard':
+        // @ts-ignore
+        const motherboard: Motherboard = item;
+        this.addMotherboard(motherboard);
+        break;
+      case 'gpu':
+        // @ts-ignore
+        const gpu: Gpu = item;
+        this.addGpu(gpu);
+        break;
+    }
+  }
   addCpu(cpu: Cpu){
     this.cpus.push(cpu);
   }
@@ -255,6 +280,31 @@ export class ItemsService {
     this.gpus.push(gpu);
   }
 
+  editItem(id: string, item: Item){
+    const type = id.substr(0, 1);
+    switch (type){
+      case 'c':
+        // @ts-ignore
+        const cpu: Cpu = item;
+        this.editCpu(id, cpu);
+        break;
+      case 'r':
+        // @ts-ignore
+        const ram: Ram = item;
+        this.editRam(id, ram);
+        break;
+      case 'm':
+        // @ts-ignore
+        const motherboard: Motherboard = item;
+        this.editMotherboard(id, motherboard);
+        break;
+      case 'g':
+        // @ts-ignore
+        const gpu: Gpu = item;
+        this.editGpu(id, gpu);
+        break;
+    }
+  }
   editCpu(id: string, cpu: Cpu){
     this.cpus[this.getItemIndex(cpu.type, id)] = cpu;
   }
