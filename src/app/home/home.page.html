@@ -22,7 +22,7 @@
                             <ion-col size="4"><img [src]="item.imageUrl" alt="image"/></ion-col>
                             <ion-col size="8">
                                 <ion-text>{{item.brand}}</ion-text>
-                                <ion-text style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-height: 16px; max-height: 32px; -webkit-box-orient: vertical">
+                                <ion-text style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 16px; max-height: 32px; -webkit-box-orient: vertical">
                                     <b>{{item.model}}</b>
                                 </ion-text>
                                 <br>
@@ -37,11 +37,11 @@
         </ion-row>
         <ion-row *ngSwitchCase="'2'">
             <ion-col size="6" *ngFor="let item of items">
-                <ion-card [routerLink]="['./', item.id]" class="ion-no-padding ion-no-margin">
+                <ion-card [routerLink]="['./', item.id]" class="ion-no-padding ion-no-margin" style="height: 100%;">
                     <img [src]="item.imageUrl" alt="image"/>
                     <ion-card-header>
                         <ion-card-subtitle>{{item.brand}}</ion-card-subtitle>
-                        <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; line-height: 16px; max-height: 32px; -webkit-box-orient: vertical">
+                        <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 16px; max-height: 32px; -webkit-box-orient: vertical">
                             <b>{{item.model}}</b>
                         </p>
                     </ion-card-header>
