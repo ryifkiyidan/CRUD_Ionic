@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ItemsService} from '../items/items.service';
 import {Item} from '../items/item.model';
-import {AlertController, ToastController} from '@ionic/angular';
+import {AlertController, LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-admin',
@@ -14,6 +14,7 @@ export class AdminPage implements OnInit {
   constructor(
       private itemsServ: ItemsService,
       private alertCtrl: AlertController,
+      private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
   ) {
   }
@@ -22,11 +23,6 @@ export class AdminPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.items = this.itemsServ.getAllItems();
-  }
-
-  deleteItem(id: string){
-    this.itemsServ.deleteItem(id);
     this.items = this.itemsServ.getAllItems();
   }
 
@@ -43,13 +39,26 @@ export class AdminPage implements OnInit {
             {
               text: 'Yes, delete it!',
               handler: () => {
-                this.deleteItem(id);
-                this.presentToast();
+                this.presentLoading().then(() => {
+                  this.itemsServ.deleteItem(id);
+                  this.items = this.itemsServ.getAllItems();
+                  this.presentToast();
+                });
               }
             }
           ]
         });
     await alert.present();
+  }
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Deleting item...',
+      duration: 2000,
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
   async presentToast() {
     const toast = await this.toastCtrl.create({

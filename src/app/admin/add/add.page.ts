@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {ItemsService} from '../../items/items.service';
-import {NavController, ToastController} from '@ionic/angular';
+import {LoadingController, NavController, ToastController} from '@ionic/angular';
 import {Ram} from '../../items/ram.model';
 import {Cpu} from '../../items/cpu.model';
 import {Motherboard} from '../../items/motherboard.model';
@@ -16,7 +16,8 @@ export class AddPage implements OnInit {
   constructor(
       private itemsServ: ItemsService,
       private navCtrl: NavController,
-      private toastCtrl: ToastController
+      private loadingCtrl: LoadingController,
+      private toastCtrl: ToastController,
   ) { }
   form: FormGroup;
   validationMessages = {
@@ -197,8 +198,7 @@ export class AddPage implements OnInit {
         coreCount: iCoreCount,
         threadCount: iThreadCount
       };
-      // @ts-ignore
-      this.itemsServ.addCpu(cpu);
+      this.itemsServ.addItem(cpu);
     }
     else if (iType === 'ram'){
       const iId = 'r' + (this.itemsServ.getItemLength(iType) + 1);
@@ -215,8 +215,7 @@ export class AddPage implements OnInit {
         speed: iSpeedRam,
         size: iSizeRam,
       };
-      // @ts-ignore
-      this.itemsServ.addRam(ram);
+      this.itemsServ.addItem(ram);
     }
     else if (iType === 'motherboard'){
       const iId = 'm' + (this.itemsServ.getItemLength(iType) + 1);
@@ -233,8 +232,7 @@ export class AddPage implements OnInit {
         chipset: iChipset,
         socket: iSocket,
       };
-      // @ts-ignore
-      this.itemsServ.addMotherboard(motherboard);
+      this.itemsServ.addItem(motherboard);
     }
     else if (iType === 'gpu'){
       const iId = 'g' + (this.itemsServ.getItemLength(iType) + 1);
@@ -251,13 +249,23 @@ export class AddPage implements OnInit {
         size: iSizeGpu,
         speed: iSpeedGpu,
       };
-      // @ts-ignore
-      this.itemsServ.addGpu(gpu);
+      this.itemsServ.addItem(gpu);
     }
-    this.presentToast();
-    this.navCtrl.navigateBack('/admin');
+    this.presentLoading().then(() => {
+      this.presentToast();
+      this.navCtrl.navigateBack('/admin');
+    });
   }
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Adding item...',
+      duration: 2000,
+    });
+    await loading.present();
 
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
   async presentToast() {
     const toast = await this.toastCtrl.create({
       message: 'Item added successfully',

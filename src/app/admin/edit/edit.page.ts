@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ItemsService} from '../../items/items.service';
 import {Item} from '../../items/item.model';
-import {NavController, ToastController} from '@ionic/angular';
+import {AlertController, LoadingController, NavController, ToastController} from '@ionic/angular';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Cpu} from '../../items/cpu.model';
 import {Ram} from '../../items/ram.model';
@@ -19,6 +19,8 @@ export class EditPage implements OnInit {
       private activatedRoute: ActivatedRoute,
       private itemsServ: ItemsService,
       private navCtrl: NavController,
+      private alertCtrl: AlertController,
+      private loadingCtrl: LoadingController,
       private toastCtrl: ToastController,
   ) { }
   form: FormGroup;
@@ -230,8 +232,7 @@ export class EditPage implements OnInit {
         coreCount: iCoreCount,
         threadCount: iThreadCount
       };
-      // @ts-ignore
-      this.itemsServ.editCpu(this.itemId, cpu);
+      this.presentAlert(this.itemId, cpu);
     }
     else if (iType === 'ram'){
       const iId = 'r' + (this.itemsServ.getItemLength(iType) + 1);
@@ -248,8 +249,7 @@ export class EditPage implements OnInit {
         speed: iSpeedRam,
         size: iSizeRam,
       };
-      // @ts-ignore
-      this.itemsServ.editRam(this.itemId, ram);
+      this.presentAlert(this.itemId, ram);
     }
     else if (iType === 'motherboard'){
       const iId = 'm' + (this.itemsServ.getItemLength(iType) + 1);
@@ -266,8 +266,7 @@ export class EditPage implements OnInit {
         chipset: iChipset,
         socket: iSocket,
       };
-      // @ts-ignore
-      this.itemsServ.editMotherboard(this.itemId, motherboard);
+      this.presentAlert(this.itemId, motherboard);
     }
     else if (iType === 'gpu'){
       const iId = 'g' + (this.itemsServ.getItemLength(iType) + 1);
@@ -284,11 +283,42 @@ export class EditPage implements OnInit {
         size: iSizeGpu,
         speed: iSpeedGpu,
       };
-      // @ts-ignore
-      this.itemsServ.editGpu(this.itemId, gpu);
+      this.presentAlert(this.itemId, gpu);
     }
-    this.presentToast();
-    this.navCtrl.navigateBack('/admin');
+  }
+  async presentAlert(id: string, item: Item){
+    const alert = await this.alertCtrl
+        .create({
+          header: 'Are you sure?',
+          message: 'Want to edit this item',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel'
+            },
+            {
+              text: 'Yes, edit it!',
+              handler: () => {
+                this.presentLoading().then(() => {
+                  this.itemsServ.editItem(id, item);
+                  this.presentToast();
+                  this.navCtrl.navigateBack('/admin');
+                });
+              }
+            }
+          ]
+        });
+    await alert.present();
+  }
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Editing item...',
+      duration: 2000,
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
   async presentToast() {
     const toast = await this.toastCtrl.create({
