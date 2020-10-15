@@ -4,6 +4,16 @@
       <ion-back-button defaultHref="/admin"></ion-back-button>
     </ion-buttons>
     <ion-title>Edit Item</ion-title>
+    <ion-buttons slot="end">
+      <ion-button type="submit"
+                  (click)="onSubmit()"
+                  [disabled]="(!form.get('gForm').valid || !form.get('cpuForm').valid) &&
+                                  (!form.get('gForm').valid || !form.get('ramForm').valid) &&
+                                  (!form.get('gForm').valid || !form.get('motherboardForm').valid) &&
+                                  (!form.get('gForm').valid || !form.get('gpuForm').valid)">
+        <ion-icon name="checkmark-done"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -281,14 +291,6 @@
       <!--Submit Button-->
       <ion-row>
         <ion-col>
-          <ion-button type="submit"
-                      color="danger"
-                      expand="block"
-                      (click)="onSubmit()"
-                      [disabled]="(!form.get('gForm').valid || !form.get('cpuForm').valid) &&
-                                  (!form.get('gForm').valid || !form.get('ramForm').valid) &&
-                                  (!form.get('gForm').valid || !form.get('motherboardForm').valid) &&
-                                  (!form.get('gForm').valid || !form.get('gpuForm').valid)">Submit</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
